@@ -15,7 +15,14 @@ fs.readFile("./index.html",function(error,html_read_async){
   http.createServer(function(req,res){
 
     //El parámetro "res" es el que se encarga de mostrar por pantalla la respuesta que queramos,
-    //en función de la petición que nos han hecho con el objeto "req".
+    //en función (o no) de la petición que nos han hecho con el objeto "req".
+
+    //La función writeHead, recibe dos parámetros: el código respuesta que debe de recibir el servidor  para escribir esa cabecera
+    //y luego: el contenido de la cabecera  en formato JSON, que se colocará si cumple la condición descrita anteriormente.
+    res.writeHead(200,{"Content-Type":"text/html"});
+
+    //La función write envía un trozo de respuesta, no toda la respuesta. Es como un append.
+    //Cada vez que se hace un write, no se limpia lo que se hubiera escrito anteriormente, si no que se pone debajo de la última.
     res.write(html_read_async);
     res.end();
   }).listen("8080");
